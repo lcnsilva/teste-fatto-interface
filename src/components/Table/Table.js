@@ -9,11 +9,12 @@ export const Table = styled.table`
 `
 
 export const TableTitle = styled.th`
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: 300;
     text-align: center;
     padding: 8px;
     color: #ffffff;
-    background: #4FC3A1;
+    background: #18243e;
 `
 
 export const TableRow = styled.tr`
