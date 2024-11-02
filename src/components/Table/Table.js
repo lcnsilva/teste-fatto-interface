@@ -12,21 +12,20 @@ export const TableTitle = styled.th`
     font-size: 20px;
     font-weight: 300;
     text-align: center;
-    padding: 8px;
+    padding: 1rem;
     color: #ffffff;
     background: #18243e;
 `
 
 export const TableRow = styled.tr`
     text-align: center;
-    padding: 8px;
     border-right: 2px solid #F5F5F5;
     font-size: 12px;
 `
 
 export const TableData = styled.td`
     text-align: center;
-    padding: 8px;
+    padding: 1rem;
     border-right: 2px solid #F5F5F5;
     border-bottom: 2px solid #F5F5F5;
     font-size: 16px;
@@ -49,4 +48,10 @@ export const DeleteButton = styled.button`
     border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
+`
+
+export const TableHead = styled.thead`
+`
+
+export const TableBody = styled.tbody`
 `

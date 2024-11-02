@@ -1,1 +1,72 @@
-[{"id":1,"nome":"Estudar Prisma","custo":50,"dataLimite":"2024-11-15 00:00:00","ordemApresentacao":1},{"id":2,"nome":"Implementar nova feature","custo":150,"dataLimite":"2024-11-20 00:00:00","ordemApresentacao":2},{"id":3,"nome":"Revisar código","custo":75,"dataLimite":"2024-11-25 00:00:00","ordemApresentacao":3},{"id":4,"nome":"Escrever documentação","custo":30,"dataLimite":"2024-11-30 00:00:00","ordemApresentacao":4},{"id":5,"nome":"Realizar testes","custo":100,"dataLimite":"2024-11-18 00:00:00","ordemApresentacao":5},{"id":6,"nome":"Planejar reunião","custo":20,"dataLimite":"2024-11-22 00:00:00","ordemApresentacao":6},{"id":7,"nome":"Criar apresentação","custo":60,"dataLimite":"2024-11-28 00:00:00","ordemApresentacao":7},{"id":8,"nome":"Configurar ambiente","custo":40,"dataLimite":"2024-11-17 00:00:00","ordemApresentacao":8},{"id":9,"nome":"Atualizar dependências","custo":25,"dataLimite":"2024-11-21 00:00:00","ordemApresentacao":9},{"id":10,"nome":"Reunião de feedback","custo":10,"dataLimite":"2024-11-19 00:00:00","ordemApresentacao":10}]
+[
+    {
+        "id": 1,
+        "nome": "Estudar Prisma",
+        "custo": 50,
+        "dataLimite": "2024-11-15 00:00:00",
+        "ordemApresentacao": 1
+    },
+    {
+        "id": 2,
+        "nome": "Implementar nova feature",
+        "custo": 150,
+        "dataLimite": "2024-11-20 00:00:00",
+        "ordemApresentacao": 2
+    },
+    {
+        "id": 3,
+        "nome": "Revisar código",
+        "custo": 75,
+        "dataLimite": "2024-11-25 00:00:00",
+        "ordemApresentacao": 3
+    },
+    {
+        "id": 4,
+        "nome": "Escrever documentação",
+        "custo": 30,
+        "dataLimite": "2024-11-30 00:00:00",
+        "ordemApresentacao": 4
+    },
+    {
+        "id": 5,
+        "nome": "Realizar testes",
+        "custo": 100,
+        "dataLimite": "2024-11-18 00:00:00",
+        "ordemApresentacao": 5
+    },
+    {
+        "id": 6,
+        "nome": "Planejar reunião",
+        "custo": 20,
+        "dataLimite": "2024-11-22 00:00:00",
+        "ordemApresentacao": 6
+    },
+    {
+        "id": 7,
+        "nome": "Criar apresentação",
+        "custo": 60,
+        "dataLimite": "2024-11-28 00:00:00",
+        "ordemApresentacao": 7
+    },
+    {
+        "id": 8,
+        "nome": "Configurar ambiente",
+        "custo": 40,
+        "dataLimite": "2024-11-17 00:00:00",
+        "ordemApresentacao": 8
+    },
+    {
+        "id": 9,
+        "nome": "Atualizar dependências",
+        "custo": 25,
+        "dataLimite": "2024-11-21 00:00:00",
+        "ordemApresentacao": 9
+    },
+    {
+        "id": 10,
+        "nome": "Reunião de feedback",
+        "custo": 10,
+        "dataLimite": "2024-11-19 00:00:00",
+        "ordemApresentacao": 10
+    }
+]
