@@ -1,18 +1,22 @@
-import deleteTarefa from '../../services/deleteTarefa.js';
+import api from '../../services/api.js'
 import * as S from './ModalExcluir.js'
 
 const ModalExcluir = ({ onClose, tarefa, fetchData }) => {
     const handleDelete = async (event, value) => {
-        console.log(event);
-        if(value){
-            await deleteTarefa(tarefa.id);
-            fetchData();
-            console.log('Deletou')
+        try {
+            console.log(event);
+            if (value) {
+                await api.delete(`/tarefas/${tarefa.id}`);
+                fetchData();
+                console.log('Deletou');
+            }
+            if (!value) {
+                console.log('não deletou');
+            }
+            onClose();
+        } catch (error) {
+            console.log(error);
         }
-        if(!value){
-            console.log('não deletou')
-        }
-        onClose();
     } 
     return (
         <S.Container>

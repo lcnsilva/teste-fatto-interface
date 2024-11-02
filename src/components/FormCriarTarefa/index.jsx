@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import * as S from './Form.js'
-import createTarefa from '../../services/createTarefa.js'
+import api from '../../services/api.js'
 
-const FormCriarTarefa = ({ onClose }) => {
+const FormCriarTarefa = ({ onClose, fetchData }) => {
 
     const [tarefa, setTarefa] = useState({
         nome: '',
@@ -11,20 +11,23 @@ const FormCriarTarefa = ({ onClose }) => {
     })
 
     const handleSubmit = async (e) => {
-        console.log(tarefa)
-        e.preventDefault();
-        const data = await createTarefa(tarefa);
-        if(data === undefined){
-            console.log("Erro ao criar tarefa")
-        }
-        if(data === 406){
-            console.log('TAREFA JA EXISTEEEEEEEEEEE ')
-        }
-        if(data === 201){
-            console.log('Tarefa criada com sucesso');
-            onClose();
-        }
+        try{
+            e.preventDefault();
+            const newDate = new Date(tarefa.dataLimite);
+            console.log(tarefa.dataLimite)
+            console.log(newDate);
 
+            await api.post('/tarefas', {
+                nome: tarefa.nome,
+                custo: parseFloat(tarefa.custo),
+                dataLimite: newDate
+            });
+            fetchData();
+            onClose();
+        }catch(error){
+            console.log(error);
+        }
+        
         //VER O PORQUE ELE TA SALVANDO TEMPO E NÃO SÓ A DATA
     }
 

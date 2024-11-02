@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as S from './Table.js'
-import getTarefas from '../../services/getTarefas.js';
 import Modal from '../Modal/index.jsx';
 import ModalExcluir from '../ModalExcluir/index.jsx';
 import ModalUpdate from '../ModalUpdate/index.jsx';
-// import tarefas from '../../Tarefas.json'
-const Table = () => {
 
-    const [tarefas, setTarefas] = useState([{}]);
+const Table = ({ fetchData, fetchError, tarefas }) => {
+
     const [isOpen, setIsOpen] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
     const [tarefaOnClick, setTarefaOnClick] = useState({
@@ -22,6 +20,12 @@ const Table = () => {
         const newValue = parseFloat(value).toFixed(2);
         return newValue;
     }
+    const removeHours = (value) => {
+        if (!value) {
+            return '';
+        }
+        return value.split('T')[0];
+    }
 
     const isDelete = (tarefa, value) => {
         setTarefaOnClick(tarefa);
@@ -34,15 +38,7 @@ const Table = () => {
             setIsOpen(true);
         }
     }
-    const fetchData = async () => {
-        console.log('fiz o fetch')
-        const tarefasData = await getTarefas();
-        setTarefas(tarefasData);
-    }
-    useEffect(() => {
-        fetchData();
-    }, [])
- 
+
     return (
         <div>
             <S.Table>
@@ -57,27 +53,33 @@ const Table = () => {
                     </S.TableRow>
                 </S.TableHead>
                 <S.TableBody>
-                    {tarefas.map((tarefa, index) =>
-                        <S.TableRow key={index}>
-                            <S.TableData>
-                                {tarefa.id}
-                            </S.TableData>
-                            <S.TableData>
-                                {tarefa.nome}
-                            </S.TableData>
-                            <S.TableData>
-                                R$ {decimalPlace(tarefa.custo)}
-                            </S.TableData>
-                            <S.TableData>
-                                {tarefa.dataLimite}
-                            </S.TableData>
-                            <S.TableData>
-                                <S.EditButton onClick={() => {isDelete(tarefa, false)}}>Editar</S.EditButton>
-                            </S.TableData>
-                            <S.TableData>
-                                <S.DeleteButton onClick={() => {isDelete(tarefa, true)}}>Excluir</S.DeleteButton>
-                            </S.TableData>
+                    {fetchError ? (
+                        <S.TableRow>
+                            <S.TableData colSpan={5}>Não foi possível carregar as tarefas. Tente novamente mais tarde.</S.TableData>
                         </S.TableRow>
+                    ):(
+                        tarefas.map((tarefa, index) =>
+                            <S.TableRow key={index}>
+                                <S.TableData>
+                                    {tarefa.id}
+                                </S.TableData>
+                                <S.TableData>
+                                    {tarefa.nome}
+                                </S.TableData>
+                                <S.TableData>
+                                    R$ {decimalPlace(tarefa.custo)}
+                                </S.TableData>
+                                <S.TableData>
+                                    {removeHours(tarefa.dataLimite)}
+                                </S.TableData>
+                                <S.TableData>
+                                    <S.EditButton onClick={() => {isDelete(tarefa, false)}}>Editar</S.EditButton>
+                                </S.TableData>
+                                <S.TableData>
+                                    <S.DeleteButton onClick={() => {isDelete(tarefa, true)}}>Excluir</S.DeleteButton>
+                                </S.TableData>
+                            </S.TableRow>
+                        )
                     )}
                     {modalDelete ?
                         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
@@ -85,7 +87,7 @@ const Table = () => {
                         </Modal>
                         :
                         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                            <ModalUpdate onClose={() => setIsOpen(false)} tarefa={tarefaOnClick} fetchData={fetchData}/>
+                            <ModalUpdate onClose={() => setIsOpen(false)} tarefa={tarefaOnClick} fetchData={fetchData} removeHours={removeHours}/>
                         </Modal>
                     }
 

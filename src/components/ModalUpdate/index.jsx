@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as S from './ModalUpdate.js'
-import updateTarefa from '../../services/updateTarefa.js';
+import api from '../../services/api.js'
 
 const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
 
@@ -12,28 +12,29 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
     })
 
     useEffect(() => {
-        if (tarefa) {
-            const novaData = tarefa.dataLimite.split('T')[0]; //GAMBIARRA POIS O VALOR SALVO NO BANCO DE DADOS ESTÁ ERRADO.
+        if(tarefa){
+            const newDate = new Date(tarefa.dataLimite.split('T')[0]);
             setNewTarefa({
                 id: tarefa.id,
                 nome: tarefa.nome,
                 custo: tarefa.custo,
-                dataLimite: novaData
+                dataLimite: newDate
             });
         }
     }, [tarefa])
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(newTarefa);
-        const status = await updateTarefa(newTarefa);
-        if(status === 406){
-            console.log('TAREFA JA EXISTEEEEEEEEEEE ')
-        }
-        if(status === 200){
-            console.log('Tarefa atualizada com sucesso');
+        try{
+            e.preventDefault();
+            await api.put(`/tarefas/${newTarefa.id}`, {
+                nome: newTarefa.nome,
+                custo: parseFloat(newTarefa.custo),
+                dataLimite: newTarefa.dataLimite
+            })
             fetchData();
             onClose();
+        }catch(error){
+            console.log(error);
         }
     }
 
