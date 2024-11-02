@@ -14,9 +14,6 @@ const FormCriarTarefa = ({ onClose, fetchData }) => {
         try{
             e.preventDefault();
             const newDate = new Date(tarefa.dataLimite);
-            console.log(tarefa.dataLimite)
-            console.log(newDate);
-
             await api.post('/tarefas', {
                 nome: tarefa.nome,
                 custo: parseFloat(tarefa.custo),

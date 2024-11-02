@@ -13,12 +13,12 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
 
     useEffect(() => {
         if(tarefa){
-            const newDate = new Date(tarefa.dataLimite.split('T')[0]);
+            const onlyDate = tarefa.dataLimite.split('T')[0];
             setNewTarefa({
                 id: tarefa.id,
                 nome: tarefa.nome,
                 custo: tarefa.custo,
-                dataLimite: newDate
+                dataLimite: onlyDate
             });
         }
     }, [tarefa])
@@ -26,10 +26,11 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
     const handleSubmit = async (e) => {
         try{
             e.preventDefault();
+            const newDate = new Date(newTarefa.dataLimite);
             await api.put(`/tarefas/${newTarefa.id}`, {
                 nome: newTarefa.nome,
                 custo: parseFloat(newTarefa.custo),
-                dataLimite: newTarefa.dataLimite
+                dataLimite: newDate
             })
             fetchData();
             onClose();
