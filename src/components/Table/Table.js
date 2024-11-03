@@ -15,6 +15,7 @@ export const TableTitle = styled.th`
     padding: 1rem;
     color: #ffffff;
     background: #18243e;
+    border-right: 1px solid #EAEAEA ;
 `
 
 export const TableRow = styled.tr`
@@ -45,6 +46,15 @@ export const DeleteButton = styled.button`
     width: 100%;
     padding: 1rem 0.5rem;
     background-color: #f07167;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+`
+
+export const MoveButton = styled.button`
+    width: 100%;
+    padding: 1rem 0.5rem;
+    background-color: #EAEAEA;
     border-radius: 8px;
     font-size: 16px;
     font-weight: 600;

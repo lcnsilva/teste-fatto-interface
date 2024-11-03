@@ -3,6 +3,7 @@ import * as S from './Table.js'
 import Modal from '../Modal/index.jsx';
 import ModalExcluir from '../ModalExcluir/index.jsx';
 import ModalUpdate from '../ModalUpdate/index.jsx';
+import api from '../../services/api.js';
 
 const Table = ({ fetchData, fetchError, tarefas }) => {
 
@@ -39,6 +40,40 @@ const Table = ({ fetchData, fetchError, tarefas }) => {
         }
     }
 
+    const moveDown = async (tarefa) =>{
+        if(tarefa.ordemApresentacao === tarefas.length){
+            console.log('bateu')
+        }
+        const id = tarefa.id;
+        const currentOrdemApresentacao = tarefa.ordemApresentacao;
+        const newOrdemApresentacao = tarefa.ordemApresentacao + 1;
+        await api.put(`/ordem/${id}`, {
+            oldOrdemApresentacao: currentOrdemApresentacao,
+            newOrdemApresentacao: newOrdemApresentacao
+        })        
+        console.log(currentOrdemApresentacao);
+        console.log(newOrdemApresentacao);
+        fetchData();
+
+    }
+
+    const moveUp = async (tarefa) =>{
+        if(tarefa.ordemApresentacao === 1){
+            console.log('Não é possível descer essa tarefa.')
+            return
+        }
+        const id = tarefa.id;
+        const currentOrdemApresentacao = tarefa.ordemApresentacao;
+        const newOrdemApresentacao = tarefa.ordemApresentacao - 1;
+        await api.put(`/ordem/${id}`, {
+            oldOrdemApresentacao: currentOrdemApresentacao,
+            newOrdemApresentacao: newOrdemApresentacao
+        })        
+        console.log(currentOrdemApresentacao);
+        console.log(newOrdemApresentacao);
+        fetchData();
+    }
+
     return (
         <div>
             <S.Table>
@@ -48,14 +83,13 @@ const Table = ({ fetchData, fetchError, tarefas }) => {
                         <S.TableTitle>Nome da tarefa</S.TableTitle>
                         <S.TableTitle>Custo</S.TableTitle>
                         <S.TableTitle>Data Limite</S.TableTitle>
-                        <S.TableTitle></S.TableTitle>
-                        <S.TableTitle></S.TableTitle>
+                        <S.TableTitle colSpan={4}>Funções</S.TableTitle>
                     </S.TableRow>
                 </S.TableHead>
                 <S.TableBody>
                     {fetchError ? (
                         <S.TableRow>
-                            <S.TableData colSpan={5}>Não foi possível carregar as tarefas. Tente novamente mais tarde.</S.TableData>
+                            <S.TableData colSpan={6}>Não foi possível carregar as tarefas. Tente novamente mais tarde.</S.TableData>
                         </S.TableRow>
                     ):(
                         tarefas.map((tarefa, index) =>
@@ -77,6 +111,12 @@ const Table = ({ fetchData, fetchError, tarefas }) => {
                                 </S.TableData>
                                 <S.TableData>
                                     <S.DeleteButton onClick={() => {isDelete(tarefa, true)}}>Excluir</S.DeleteButton>
+                                </S.TableData>
+                                <S.TableData>
+                                    <S.MoveButton onClick={() => moveUp(tarefa)}>Subir</S.MoveButton>
+                                </S.TableData>
+                                <S.TableData>
+                                    <S.MoveButton onClick={() => moveDown(tarefa)}>Descer</S.MoveButton>
                                 </S.TableData>
                             </S.TableRow>
                         )
