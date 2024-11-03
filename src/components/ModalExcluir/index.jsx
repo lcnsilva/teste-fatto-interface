@@ -4,14 +4,9 @@ import * as S from './ModalExcluir.js'
 const ModalExcluir = ({ onClose, tarefa, fetchData }) => {
     const handleDelete = async (event, value) => {
         try {
-            console.log(event);
             if (value) {
                 await api.delete(`/tarefas/${tarefa.id}`);
                 fetchData();
-                console.log('Deletou');
-            }
-            if (!value) {
-                console.log('não deletou');
             }
             onClose();
         } catch (error) {

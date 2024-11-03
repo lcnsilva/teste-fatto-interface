@@ -8,7 +8,9 @@ const FormCriarTarefa = ({ onClose, fetchData }) => {
         nome: '',
         custo: 0,
         dataLimite:''
-    })
+    });
+    const [fetchError, setFetchError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         try{
@@ -22,10 +24,15 @@ const FormCriarTarefa = ({ onClose, fetchData }) => {
             fetchData();
             onClose();
         }catch(error){
-            console.log(error);
+            setFetchError(true);
+            if (error.response) {
+                setErrorMessage(error.response.data.msg);
+            } else if (error.request) {
+                setErrorMessage('Erro de conexão: Não foi possível conectar ao servidor.');
+            } else {
+                setErrorMessage('Erro: ' + error.message);
+            }
         }
-        
-        //VER O PORQUE ELE TA SALVANDO TEMPO E NÃO SÓ A DATA
     }
 
     const handleChange = (e) => {
@@ -35,6 +42,8 @@ const FormCriarTarefa = ({ onClose, fetchData }) => {
                 ...prevTarefa,
                 [name]: value
             }));
+            setFetchError(false);
+            setErrorMessage('');
         } catch (error) {
             console.log(error);
         }
@@ -62,7 +71,9 @@ const FormCriarTarefa = ({ onClose, fetchData }) => {
             onChange={handleChange}
             required
             />
-            {/*CRIAR CAMPO DE ERRO AQUI*/}
+            {fetchError ? (
+                <S.ErrorContainer>{errorMessage}</S.ErrorContainer>
+            ) : ('')}
             <S.SubmitButton>Criar Tarefa</S.SubmitButton>
         </S.Form>
     )

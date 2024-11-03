@@ -35,7 +35,7 @@ export const TableData = styled.td`
 
 export const EditButton = styled.button`
     width: 100%;
-    padding: 1rem 0.5rem;
+    padding: 0.5rem;
     background-color: #457b9d;
     border-radius: 8px;
     font-size: 16px;
@@ -44,7 +44,7 @@ export const EditButton = styled.button`
 
 export const DeleteButton = styled.button`
     width: 100%;
-    padding: 1rem 0.5rem;
+    padding: 0.5rem;
     background-color: #f07167;
     border-radius: 8px;
     font-size: 16px;
@@ -64,4 +64,9 @@ export const TableHead = styled.thead`
 `
 
 export const TableBody = styled.tbody`
+`
+
+export const Icon = styled.img`
+    width: 30px;
+    height: 30px;
 `

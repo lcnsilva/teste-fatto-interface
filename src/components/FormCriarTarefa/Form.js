@@ -23,5 +23,10 @@ export const SubmitButton = styled.button`
     font-size: 20px;
 `
 
+export const ErrorContainer = styled.div`
+    font-size: 1rem;
+    color: red;
+`
+
 export const Label = styled.label`
 `

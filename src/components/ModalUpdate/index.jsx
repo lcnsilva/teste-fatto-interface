@@ -9,8 +9,9 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
         nome: '',
         custo: 0,
         dataLimite:''
-    })
-
+    });
+    const [fetchError, setFetchError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     useEffect(() => {
         if(tarefa){
             const onlyDate = tarefa.dataLimite.split('T')[0];
@@ -35,7 +36,8 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
             fetchData();
             onClose();
         }catch(error){
-            console.log(error);
+            setFetchError(true);
+            setErrorMessage(error.response.data.msg);
         }
     }
 
@@ -46,6 +48,8 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
                 ...prevNewTarefa,
                 [name]: value
             }));
+            setFetchError(false);
+            setErrorMessage('');
         } catch (error) {
             console.log(error);
         }
@@ -73,8 +77,15 @@ const ModalUpdate = ({ onClose, tarefa, fetchData}) => {
             onChange={handleChange}
             value={newTarefa.dataLimite}
             />
-            {/*CRIAR CAMPO DE ERRO AQUI*/}
-            <S.SubmitButton>Atualizar Tarefa</S.SubmitButton>
+            {fetchError ? (
+                <S.ErrorContainer>{errorMessage}</S.ErrorContainer>
+
+            ) : ('')}
+            <S.ButtonContainer>
+                <S.CancelButton type='button' onClick={() => onClose()}>Cancelar</S.CancelButton>
+                <S.SubmitButton type='submit'>Atualizar Tarefa</S.SubmitButton>
+            </S.ButtonContainer>
+
         </S.Form>
     )
 }

@@ -18,7 +18,6 @@ function App() {
       const tarefasData = await api.get('/tarefas')
       setTarefas(tarefasData.data);
       setFetchError(false);
-      console.log(tarefasData);
     } catch (error) {
       setFetchError(true);
       console.log(error);
